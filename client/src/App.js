@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import jwt_decode from 'jwt-decode';
 
 import Navbar from './components/layout/Navbar';
 import Landing from './components/layout/Landing';
@@ -9,6 +10,22 @@ import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import store from './store/configureStore';
 import './App.css';
+import setAuthToken from './utils/setAuthToken';
+import { setCurrentUser, logoutUser } from './actions/authActions';
+
+if (localStorage.jwtToken) {
+  setAuthToken(localStorage.jwtToken);
+  const decoded = jwt_decode(localStorage.jwtToken);
+  store.dispatch(setCurrentUser(decoded));
+
+  const currentTime = Date.now() / 1000;
+
+  if (decoded.exp < currentTime) {
+    store.dispatch(logoutUser());
+
+    window.location.href = '/login';
+  }
+}
 
 class App extends Component {
   render() {
