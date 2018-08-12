@@ -16,7 +16,7 @@ class AddExperience extends Component {
       from: '',
       to: '',
       current: false,
-      descriptions: '',
+      description: '',
       errors: {},
       disabled: false
     };
@@ -38,7 +38,7 @@ class AddExperience extends Component {
       from: this.state.from,
       to: this.state.to,
       current: this.state.current,
-      descriptions: this.state.descriptions
+      description: this.state.description
     };
 
     this.props.addExperience(expData, this.props.history);
