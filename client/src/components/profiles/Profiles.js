@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import Loader from '../common/Loader';
 import { getProfiles } from '../../actions/profileActions';
+import ProfileItem from './ProfileItem';
 
 class Profiles extends Component {
   componentDidMount() {
@@ -17,7 +18,9 @@ class Profiles extends Component {
       profileItems = <Loader />;
     } else {
       if (profiles.length > 0) {
-        profileItems = <h1>Profiles here</h1>;
+        profileItems = profiles.map(profile => (
+          <ProfileItem key={profile._id} profile={profile} />
+        ));
       } else {
         profileItems = <h4>No profiles found...</h4>;
       }
@@ -42,7 +45,7 @@ class Profiles extends Component {
 
 Profiles.propTypes = {
   getProfiles: PropTypes.func.isRequired,
-  profiles: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({

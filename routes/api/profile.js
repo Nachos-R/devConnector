@@ -114,7 +114,7 @@ router.post(
       profileFields.githubusername = req.body.githubusername;
 
     if (typeof req.body.skills !== 'undefined') {
-      profileFields.skills = req.body.skills.split(', ');
+      profileFields.skills = req.body.skills.split(',');
     }
 
     profileFields.social = {};
